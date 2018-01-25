@@ -7,7 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeusJogos", "MeusJogos\Meus
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tutorial", "Tutorial", "{3EADF447-6766-4C4B-B486-5307CDCC8E73}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\Desktop\Diagrama do Projeto.PNG = ..\..\Desktop\Diagrama do Projeto.PNG
 		TecnologiasUtilizadas.txt = TecnologiasUtilizadas.txt
 	EndProjectSection
 EndProject
