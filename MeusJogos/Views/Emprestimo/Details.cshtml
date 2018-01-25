@@ -1,0 +1,72 @@
+﻿@model MeusJogos.Models.Emprestimo
+
+@{
+    ViewBag.Title = "Consultar Empréstimo de Jogos";
+}
+
+<center><h2>Consultar Empréstimo de Jogos</h2></center>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DataHora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataHora)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataEmprestimo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataEmprestimo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataProgramadaDevolucao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataProgramadaDevolucao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmprestimoSituacaoID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmprestimoSituacao.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AmigoID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Amigo.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JogoID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Jogo.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Login)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.EmprestimoID }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default" })
+</p>

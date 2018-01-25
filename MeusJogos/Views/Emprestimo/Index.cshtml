@@ -1,0 +1,69 @@
+﻿@model IEnumerable<MeusJogos.Models.Emprestimo>
+
+@{
+    ViewBag.Title = "Gerenciar Empréstimo de Jogos";
+}
+
+<center><h2>Gerenciar Empréstimo de Jogos</h2></center>
+
+<p>
+    @Html.ActionLink("Cadastrar", "Create", new { area = "" }, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DataHora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataEmprestimo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataProgramadaDevolucao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmprestimoSituacaoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AmigoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JogoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataHora)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataEmprestimo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataProgramadaDevolucao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmprestimoSituacao.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amigo.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Jogo.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.Login)
+        </td>
+        <td>            
+            @Html.ActionLink("Editar", "Edit", new { id=item.EmprestimoID }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Exibir", "Details", new { id=item.EmprestimoID }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Excluir", "Delete", new { id=item.EmprestimoID }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

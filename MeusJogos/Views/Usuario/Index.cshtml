@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MeusJogos.Models.Usuario>
+
+@{
+    ViewBag.Title = "Gerenciar Usuários";
+}
+
+<center><h2>Gerenciar Usuários</h2></center>
+
+<p>
+    @Html.ActionLink("Cadastrar", "Create", new { area = "" }, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Login)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Senha)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Senha)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.UsuarioID }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Exibir", "Details", new { id=item.UsuarioID }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Excluir", "Delete", new { id=item.UsuarioID }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>
