@@ -1,7 +1,3 @@
 # MeusJogos
-+ Gerenciar Jogos Emprestados
-
-+ Informações das tecnologias utilizadas:
-- Projeto em MVC utilizando Entity Framework e Razor
-- Login utilizado Dapper
-- Atualização de Empréstimos utilizado Dapper
++ Aplicativo Web para Gerenciar Jogos Emprestados.
++ Tecnologias utilizadas: Linguagem C#, MVC, Entity Framework, Dapper, Razor.
