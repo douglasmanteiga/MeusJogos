@@ -1,69 +1,78 @@
-﻿@model IEnumerable<MeusJogos.Models.Emprestimo>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<MeusJogos.Models.Emprestimo>
 
 @{
     ViewBag.Title = "Gerenciar Empréstimo de Jogos";
 }
-
 <center><h2>Gerenciar Empréstimo de Jogos</h2></center>
-
 <p>
     @Html.ActionLink("Cadastrar", "Create", new { area = "" }, new { @class = "btn btn-success" })
 </p>
+@using (Html.BeginForm("Index", "Emprestimo", FormMethod.Get))
+{
+    <p>
+        Procurar por Amigo: @Html.TextBox("SearchString")
+        <input type="submit" value="Busca" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DataHora)
+            @Html.ActionLink("Dt/Hr Cadastro", "Index", new { sortOrder = "Data" })
+            @*@Html.DisplayNameFor(model => model.DataHora)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DataEmprestimo)
+            @Html.ActionLink("Amigo", "Index", new { sortOrder = "Nome" })
+            @*@Html.DisplayNameFor(model => model.AmigoID)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DataProgramadaDevolucao)
+            Dt.Empréstimo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EmprestimoSituacaoID)
+            Dt.Devolução
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AmigoID)
+            Situação
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.JogoID)
+            Jogo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UsuarioID)
+            Usuário
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataHora)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataEmprestimo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataProgramadaDevolucao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmprestimoSituacao.Descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amigo.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Jogo.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.Login)
-        </td>
-        <td>            
-            @Html.ActionLink("Editar", "Edit", new { id=item.EmprestimoID }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Exibir", "Details", new { id=item.EmprestimoID }, new { @class = "btn btn-warning" })
-            @Html.ActionLink("Excluir", "Delete", new { id=item.EmprestimoID }, new { @class = "btn btn-danger" })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataHora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amigo.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataEmprestimo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataProgramadaDevolucao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmprestimoSituacao.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Jogo.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Login)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.EmprestimoID }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Exibir", "Details", new { id = item.EmprestimoID }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Excluir", "Delete", new { id = item.EmprestimoID }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

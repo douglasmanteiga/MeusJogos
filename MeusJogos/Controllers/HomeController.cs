@@ -27,15 +27,28 @@ namespace MeusJogos.Controllers
         public ActionResult Login()
         {
             //Se tiver autenticado joga para index..
-            if(Request.IsAuthenticated)
+            if (Request.IsAuthenticated)
             {
+                //Consulta se o usuário logado existe.. 
+                Usuario usuarioLogado = null;
+                using (MeusJogosContext db = new MeusJogosContext())
+                {
+                    usuarioLogado = db.Usuario.Where(p => p.Login == User.Identity.Name).FirstOrDefault();
+                }
+
+                //Se não encontrou faz logoff
+                if (usuarioLogado == null || usuarioLogado.UsuarioID <= 0)
+                {
+                    LogOff();
+                }
+
                 return RedirectToAction("Index", "Home");
             }
 
             return View();
         }
 
-        
+
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(Usuario usuario)
@@ -47,7 +60,7 @@ namespace MeusJogos.Controllers
                 string query = string.Format("select top 1 UsuarioID, Login, Senha from tblUsuario where Login = '{0}' and Senha = '{1}'", usuario.Login, usuario.Senha);
 
                 //Utilizando dapper no login
-                using (var sqlConnection = new SqlConnection(ConnectionString)) 
+                using (var sqlConnection = new SqlConnection(ConnectionString))
                 {
                     var usuarioLogin = sqlConnection.Query<Usuario>(query).FirstOrDefault();
 
@@ -86,7 +99,7 @@ namespace MeusJogos.Controllers
             return View();
         }
 
-        [Authorize]        
+        [Authorize]
         [HttpPost]
         public ActionResult LogOff()
         {

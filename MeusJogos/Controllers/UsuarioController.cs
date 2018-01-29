@@ -46,7 +46,7 @@ namespace MeusJogos.Controllers
 
         // POST: Usuario/Create
         [Authorize]
-        [HttpPost]        
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UsuarioID,Login,Senha")] Usuario usuario)
         {
@@ -165,7 +165,8 @@ namespace MeusJogos.Controllers
         {
             return RedirectToAction("Login", "Home");
         }
-        
+
+
 
         private bool ValidarUsuario(Usuario usuario)
         {

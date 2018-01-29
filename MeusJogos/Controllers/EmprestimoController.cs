@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Data.SqlClient;
 using Dapper;
+using PagedList;
 
 namespace MeusJogos.Controllers
 {
@@ -28,10 +29,82 @@ namespace MeusJogos.Controllers
 
         // GET: Emprestimo
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            //NomeAsc
+            //NomeDesc
+            //DataAsc
+            //DataDesc
 
-            return View(db.Emprestimo.ToList());
+            if (sortOrder == "Nome")
+            {
+                if (Session["ordenacao"] != null && Session["ordenacao"].Equals("NomeAsc"))
+                    Session["ordenacao"] = "NomeDesc";
+                else
+                    Session["ordenacao"] = "NomeAsc";
+            }
+
+            else if (sortOrder == "Data")
+            {
+                if (Session["ordenacao"] != null && Session["ordenacao"].Equals("DataAsc"))
+                    Session["ordenacao"] = "DataDesc";
+                else
+                    Session["ordenacao"] = "DataAsc";
+            }
+
+            if (Session["ordenacao"] != null)
+                sortOrder = Session["ordenacao"].ToString();
+
+            ViewBag.CurrentSort = sortOrder;
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var emprestimos = from s in db.Emprestimo
+                              select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                emprestimos = emprestimos.Where(s => s.Amigo.Nome.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            switch (sortOrder)
+            {
+                //NomeAsc
+                //NomeDesc
+                //DataAsc
+                //DataDesc
+
+                case "NomeAsc":
+                    emprestimos = emprestimos.OrderBy(s => s.Amigo.Nome);
+                    break;
+                case "NomeDesc":
+                    emprestimos = emprestimos.OrderByDescending(s => s.Amigo.Nome);
+                    break;
+                case "DataAsc":
+                    emprestimos = emprestimos.OrderBy(s => s.DataHora);
+                    break;
+                case "DataDesc":
+                    emprestimos = emprestimos.OrderByDescending(s => s.DataHora);
+                    break;
+                default:
+                    emprestimos = emprestimos.OrderByDescending(s => s.DataHora);
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+
+            return View(emprestimos.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Emprestimo/Details/5
@@ -71,8 +144,14 @@ namespace MeusJogos.Controllers
         {
             DadosComboBox();
 
+            Usuario usuarioLogado = db.Usuario.Where(p => p.Login == User.Identity.Name).FirstOrDefault();
+
+            if (usuarioLogado == null || usuarioLogado.UsuarioID <= 0)
+            {
+                ModelState.AddModelError("", "O usuário logado não foi encontrado, cadastre um novo usuário e realize o login para prosseguir com a operação!");
+            }
             //Seta o usuário logado para salvar no banco o log
-            emprestimo.Usuario = db.Usuario.Where(p => p.Login == User.Identity.Name).FirstOrDefault();
+            emprestimo.Usuario = usuarioLogado;
             emprestimo.DataHora = DateTime.Now;
 
             if (emprestimo.EmprestimoSituacaoID <= 0)
@@ -82,12 +161,12 @@ namespace MeusJogos.Controllers
                 ModelState.AddModelError("", "É necessário informar o amigo!");
 
             if (emprestimo.JogoID <= 0)
-                ModelState.AddModelError("", "É necessário informar o jogo");
-
+                ModelState.AddModelError("", "É necessário informar o jogo!");
 
             if (ModelState.IsValid)
             {
-                //var amigo = db.Amigo.Find(emprestimo.AmigoID);
+                //emprestimo.DataEmprestimo = DateTime.Parse(emprestimo.DataEmprestimo.ToString("yyyy-MM-dd"));
+                //emprestimo.DataProgramadaDevolucao = DateTime.Parse(emprestimo.DataProgramadaDevolucao.ToString("yyyy-MM-dd"));
 
                 db.Emprestimo.Add(emprestimo);
                 db.SaveChanges();
@@ -152,7 +231,7 @@ namespace MeusJogos.Controllers
                     return RedirectToAction("Index");
                 }
 
-                
+
             }
             return View(emprestimo);
         }
