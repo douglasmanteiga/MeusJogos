@@ -4,6 +4,8 @@
 @{
     ViewBag.Title = "Gerenciar Empréstimo de Jogos";
 }
+
+
 <center><h2>Gerenciar Empréstimo de Jogos</h2></center>
 <p>
     @Html.ActionLink("Cadastrar", "Create", new { area = "" }, new { @class = "btn btn-success" })
@@ -18,11 +20,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Dt/Hr Cadastro", "Index", new { sortOrder = "Data" })
+            @Html.ActionLink("Dt/Hr Cadastro", "Index", new { sortOrder = "Data", SearchString = @Html.Value("SearchString") })
+            @*@Html.ActionLink("Dt/Hr Cadastro", "Index", new { sortOrder = "Data" }, new { onclick = "this.href += '&SearchString=' + document.getElementById('SearchString').value;" })*@
             @*@Html.DisplayNameFor(model => model.DataHora)*@
         </th>
         <th>
-            @Html.ActionLink("Amigo", "Index", new { sortOrder = "Nome" })
+            @Html.ActionLink("Amigo", "Index", new { sortOrder = "Nome", SearchString = @Html.Value("SearchString") })
+            @*@Html.ActionLink("Amigo", "Index", new { sortOrder = "Nome" }, new { onclick = "this.href += '&SearchString=' + document.getElementById('SearchString').value;" })*@
             @*@Html.DisplayNameFor(model => model.AmigoID)*@
         </th>
         <th>
@@ -74,5 +78,5 @@
         </tr>
     }
 </table>
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
