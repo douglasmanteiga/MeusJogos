@@ -48,7 +48,43 @@ namespace MeusJogos.Controllers
             return View();
         }
 
+        //Login retornando Json
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult ValidarUsuario(string login, string senha)
+        {
+            string mensagem = string.Empty;
 
+            if (string.IsNullOrWhiteSpace(login) == false && string.IsNullOrWhiteSpace(senha) == false)
+            {
+                //Utilizando dapper no login
+                using (var sqlConnection = new SqlConnection(ConnectionString))
+                {
+                    //comando sql
+                    string query = string.Format("select top 1 UsuarioID, Login, Senha from tblUsuario where Login = '{0}' and Senha = '{1}'", login, senha);
+                    var usuarioLogin = sqlConnection.Query<Usuario>(query).FirstOrDefault();
+
+                    if (usuarioLogin != null)
+                    {
+                        //Session["usuarioLogado"] = usuarioExiste.Login;
+
+                        FormsAuthentication.SetAuthCookie(login, false);
+                        //return RedirectToAction("Index", "Home");                        
+                        return Json(new { Mensagem = "Sucess" }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { Mensagem = "Usuário ou senha inválidos." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            else
+            {
+                return Json(new { Mensagem = "Informe o usuário e senha." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //Login utilizando ActionResult
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(Usuario usuario)
