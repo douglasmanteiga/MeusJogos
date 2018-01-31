@@ -314,5 +314,6 @@ C:\Users\TestesDes\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Webpages.Depl
 C:\Users\TestesDes\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Webpages.Razor.xml
 C:\Users\TestesDes\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Helpers.xml
 C:\Users\TestesDes\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Mvc.xml
+C:\Users\TestesDes\Source\Repos\MeusJogos\MeusJogos\obj\Debug\MeusJogos.csprojResolveAssemblyReference.cache
 C:\Users\TestesDes\Source\Repos\MeusJogos\MeusJogos\obj\Debug\MeusJogos.dll
 C:\Users\TestesDes\Source\Repos\MeusJogos\MeusJogos\obj\Debug\MeusJogos.pdb
