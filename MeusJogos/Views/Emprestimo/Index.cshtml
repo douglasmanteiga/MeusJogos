@@ -8,7 +8,7 @@
 
 <center><h2>Gerenciar Empréstimo de Jogos</h2></center>
 <p>
-    @Html.ActionLink("Cadastrar", "Create", new { area = "" }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Cadastrar", "Create", new { area = "" }, new { @class = "btn btn-success", @id = "btnCadastrar" })
 </p>
 @using (Html.BeginForm("Index", "Emprestimo", FormMethod.Get))
 {
@@ -71,9 +71,9 @@
                 @Html.DisplayFor(modelItem => item.Usuario.Login)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.EmprestimoID }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Exibir", "Details", new { id = item.EmprestimoID }, new { @class = "btn btn-warning" })
-                @Html.ActionLink("Excluir", "Delete", new { id = item.EmprestimoID }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Editar", "Edit", new { id = item.EmprestimoID }, new { @class = "btn btn-primary", @id = "btnEditar" })
+                @Html.ActionLink("Exibir", "Details", new { id = item.EmprestimoID }, new { @class = "btn btn-warning", @id = "btnExibir" })
+                @Html.ActionLink("Excluir", "Delete", new { id = item.EmprestimoID }, new { @class = "btn btn-danger", @id = "btnExcluir" })
             </td>
         </tr>
     }

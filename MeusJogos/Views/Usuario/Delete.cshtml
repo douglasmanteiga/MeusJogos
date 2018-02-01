@@ -32,8 +32,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Excluir" class="btn btn-danger" /> |
-            @Html.ActionLink("Voltar", "Index", "", new { @class = "btn btn-default" })
+            <input id="btnExcluir" type="submit" value="Excluir" class="btn btn-danger" /> |
+            @Html.ActionLink("Voltar", "Index", "", new { @class = "btn btn-default", @id = "btnVoltar" })
         </div>
     }
 </div>

@@ -32,8 +32,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Salvar" class="btn btn-success" /> | 
-                @Html.ActionLink("Voltar", "VoltarLogin", null, new { @class = "btn btn-default" })
+                <input id="btnSalvar" type="submit" value="Salvar" class="btn btn-success" /> | 
+                @Html.ActionLink("Voltar", "VoltarLogin", null, new { @class = "btn btn-default", @id = "btnVoltar" })
             </div>
         </div>
     </div>
@@ -43,6 +43,6 @@
 
 
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@

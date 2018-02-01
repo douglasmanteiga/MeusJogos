@@ -1,26 +1,57 @@
 ﻿body {
     
     padding-top: 50px;
-    padding-bottom: 20px;
-
+    /*padding-bottom: 900px;*/
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
 
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
 }
 
-.container-login{
-
-    width: 400px;
-    margin: 0 auto;
+input[type=text] {
+    width: 280px;
 }
 
+#btnCadastrar
+{
+    width: 90px;
+}
+
+#btnSalvar {
+    width: 70px;
+}
+
+#btnEditar{
+    width: 70px;
+}
+
+#btnExibir {
+    width: 70px;
+}
+
+#btnExcluir {
+    width: 70px;   
+}
+
+#btnVoltar
+{
+    width: 70px;
+}
+
+
+/*input[type="submit"] {
+    width: 300px;
+    margin-left: 35px;
+    display: block;
+}*/
+
+/* centered columns styles */
+/*.row-centered {
+    text-align:center;
+}
+.col-centered {
+    border: 1px solid #ddd;
+}*/

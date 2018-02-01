@@ -33,9 +33,34 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Salvar" class="btn btn-success" /> | 
-                @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default" })
+                <input id="btnSalvar" type="submit" value="Salvar" class="btn btn-success" /> | 
+                @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default", @id = "btnSalvar" })
             </div>
         </div>
     </div>
 }
+
+@*<div class="container">
+    <div class="row row-centered">
+        <div class="col-xs-6 col-centered">Column 6</div>
+        <div class="col-xs-6 col-centered">Column 6</div>
+        <div class="col-xs-6 col-centered">Column 6</div>
+        <div class="col-xs-6 col-centered">Column 6</div>
+
+        <div class="col-xs-3 col-centered">Column 3</div>
+        <div class="col-xs-3 col-centered">Column 3</div>
+        <div class="col-xs-3 col-centered">Column 3</div>
+        <div class="col-xs-3 col-centered">Column 3</div>
+
+        <div class="col-xs-12">
+            @Html.LabelFor(model => model.Nome)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+        </div>
+
+
+
+    </div>
+</div>*@
