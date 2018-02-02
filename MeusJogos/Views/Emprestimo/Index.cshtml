@@ -19,29 +19,29 @@
 }
 <table class="table">
     <tr>
-        <th>
+        <th id="thDataHora">
             @Html.ActionLink("Dt/Hr Cadastro", "Index", new { sortOrder = "Data", SearchString = @Html.Value("SearchString") })
             @*@Html.ActionLink("Dt/Hr Cadastro", "Index", new { sortOrder = "Data" }, new { onclick = "this.href += '&SearchString=' + document.getElementById('SearchString').value;" })*@
             @*@Html.DisplayNameFor(model => model.DataHora)*@
         </th>
-        <th>
+        <th id="thAmigo">
             @Html.ActionLink("Amigo", "Index", new { sortOrder = "Nome", SearchString = @Html.Value("SearchString") })
             @*@Html.ActionLink("Amigo", "Index", new { sortOrder = "Nome" }, new { onclick = "this.href += '&SearchString=' + document.getElementById('SearchString').value;" })*@
             @*@Html.DisplayNameFor(model => model.AmigoID)*@
         </th>
-        <th>
+        <th id="thEmprestimo">
             Dt.Empréstimo
         </th>
-        <th>
+        <th id="thDevolucao">
             Dt.Devolução
         </th>
-        <th>
+        <th id="thSituacao">
             Situação
         </th>
-        <th>
+        <th id="thJogo">
             Jogo
         </th>
-        <th>
+        <th id="thUsuario">
             Usuário
         </th>
         <th></th>
