@@ -19,8 +19,10 @@ namespace MeusJogos.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //Cria a base e tabelas se não existir
-            Database.SetInitializer(new CreateDatabaseIfNotExists<MeusJogosContext>());
+            //Deleta e recria a base e tabelas, pois pode haver erro de versão do visual studio então sempre delete o arquivo e recria
+            //Quando utilizei CreateDatabaseIfNotExists teve vezes que a base não foi criada ocasionando erro
+            Database.SetInitializer(new DropCreateDatabaseAlways<MeusJogosContext>());
+            //Database.SetInitializer(new CreateDatabaseIfNotExists<MeusJogosContext>());
 
             //Remove a criação das tabelas no plural / não precisa pq já declarei nos objetos o atributo [Table("")]
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
