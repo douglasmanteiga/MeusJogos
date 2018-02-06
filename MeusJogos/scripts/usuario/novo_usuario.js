@@ -75,12 +75,12 @@ $(document).ready(function (e) {
 
                     $("#sucessoCadastrar").fadeIn("fast", function (e) { // Exibir o bloco de mensagem de erro
                         $('#mensagemSucesso').html("Usuário e Senha cadastrado com sucesso, faça o login para acessar o sistema.");
-                        $("#sucessoCadastrar").delay(2000).fadeOut("fast"); // Depois de exibido, eu dou um tempo de 1,5 segundos e escondo.                        
+                        $("#sucessoCadastrar").delay(5000).fadeOut("fast"); // Depois de exibido, eu dou um tempo de 1,5 segundos e escondo.                        
                     });
 
                     setTimeout(function () {
                         window.location.href = "/Home/Login/";
-                    }, 2000);
+                    }, 5000);
                 }
                 else {
 
