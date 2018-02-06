@@ -52,7 +52,7 @@ namespace MeusJogos.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (ValidarUsuario(usuario) == false)
+                if (ValidarUsuario(usuario.Login) == false)
                 {
                     db.Usuario.Add(usuario);
                     db.SaveChanges();
@@ -79,27 +79,45 @@ namespace MeusJogos.Controllers
         //[Authorize] AQUI Não tem pq pode ser primeiro cadastro
         [AllowAnonymous]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateUsuarioNaoLogado(Usuario usuario)
+        //[ValidateAntiForgeryToken]
+        public JsonResult CreateUsuarioNaoLogado(string usuario, string senha, string confirmarSenha)
         {
-            if (ModelState.IsValid)
+            string retorno = string.Empty;
+
+            if(string.IsNullOrEmpty(usuario) == true)
             {
-                if (ValidarUsuario(usuario) == false)
-                {
-                    db.Usuario.Add(usuario);
-                    db.SaveChanges();
+                retorno = "É necessário informar o nome do usuário.";
+            }
+            else if (string.IsNullOrEmpty(senha) == true)
+            {
+                retorno = "É necessário informar a senha.";
+            }
+            else if (string.IsNullOrEmpty(confirmarSenha) == true)
+            {
+                retorno = "É necessário confirmar a senha.";
+            }
+            else if(senha != confirmarSenha)
+            {
+                retorno = "As senhas informadas não conferem.";
+            }
+            else if (ValidarUsuario(usuario) == true)
+            {
+                retorno = "O nome de usuário informado já existe no sistema.";
+            }
+            else
+            {
+                Usuario novoUsuario = new Usuario();
+                novoUsuario.Login = usuario;
+                novoUsuario.Senha = senha;
 
-                    ViewBag.MensagemNovoUsuario = "Usuário cadastrado com sucesso, faça o login para acessar o sistema.";
+                db.Usuario.Add(novoUsuario);
+                db.SaveChanges();
 
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "O nome de usuário informado já existe no sistema!");
-                }
+                retorno = "Sucess";
             }
 
-            return View(usuario);
+
+            return Json(new { Mensagem = retorno }, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
@@ -168,9 +186,9 @@ namespace MeusJogos.Controllers
 
 
 
-        private bool ValidarUsuario(Usuario usuario)
+        private bool ValidarUsuario(string login)
         {
-            var loginExiste = db.Usuario.ToList().Where(p => p.Login == usuario.Login).FirstOrDefault();
+            var loginExiste = db.Usuario.ToList().Where(p => p.Login == login).FirstOrDefault();
 
             if (loginExiste != null)
                 return true;

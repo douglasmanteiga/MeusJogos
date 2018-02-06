@@ -166,6 +166,7 @@
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="scripts\login\login.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="scripts\usuario\novo_usuario.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

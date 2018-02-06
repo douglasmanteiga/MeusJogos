@@ -1,13 +1,48 @@
-﻿@model MeusJogos.Models.Usuario
-
-@{
+﻿@{
     ViewBag.Title = "Crie seu Usuário para acessar o Sistema";
 }
 
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/usuario/novo_usuario.js"></script>
+<link href="~/Content/login.css" rel="stylesheet" type="text/css" />
+
 <center><h2>Crie seu Usuário para acessar o Sistema</h2></center>
 
+<center>
+    <div class="container">
+        <div class="col-lg-4 col-md-3 col-sm-2"></div>
+        <div class="col-lg-4 col-md-6 col-sm-8">
+            <div class="row loginbox">
+                
+                <form>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <input id="txtLogin" class="form-control" type="text" placeholder="Usuário">
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <input id="txtSenha" class="form-control" type="password" placeholder="Senha">
+                        <input id="txtSenhaConfirmar" class="form-control" type="password" placeholder="Confirmar Senha">
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <input id="btnSalvar" type="submit" value="Salvar" class="btn btn-success" /> |
+                        @Html.ActionLink("Voltar", "VoltarLogin", null, new { @class = "btn btn-default", @id = "btnVoltar" })
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-@using (Html.BeginForm())
+    <br />
+
+    <div id="falhaCadastrar" class="row">
+        <div id="mensagemErro" class="alert alert-danger"></div>
+    </div>
+    <div id="sucessoCadastrar" class="row">
+        <div id="mensagemSucesso" class="alert alert-success"></div>
+    </div>
+</center>
+
+
+@*@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -38,7 +73,7 @@
         </div>
     </div>
 
-}
+}*@
 
 
 

@@ -12,7 +12,7 @@ $(document).ready(function (e) {
         if (vLogin.length <= 0) {
 
             $("#falhaLogin").fadeIn("fast", function (e) { // Exibir o bloco de mensagem de erro
-                $('#mensagemErro').html("O campo Login é obrigatório.");
+                $('#mensagemErro').html("O campo Usuário é obrigatório.");
                 $("#falhaLogin").delay(2000).fadeOut("fast"); // Depois de exibido, eu dou um tempo de 1,5 segundos e escondo.
             });
 

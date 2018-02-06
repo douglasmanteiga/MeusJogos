@@ -41,3 +41,15 @@
 	font-weight:bolder;
 	display:none;
 }
+
+#falhaCadastrar {
+	text-align:center;
+	font-weight:bolder;
+	display:none;
+}
+
+#sucessoCadastrar {
+	text-align:center;
+	font-weight:bolder;
+	display:none;
+}
