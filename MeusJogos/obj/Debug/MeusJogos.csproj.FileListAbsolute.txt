@@ -313,6 +313,5 @@ C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Webpages.Deploy
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Webpages.Razor.xml
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Helpers.xml
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Mvc.xml
-C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\obj\Debug\MeusJogos.csprojResolveAssemblyReference.cache
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\obj\Debug\MeusJogos.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\obj\Debug\MeusJogos.pdb
