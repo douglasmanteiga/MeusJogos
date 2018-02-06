@@ -66,6 +66,12 @@ $(document).ready(function (e) {
 
         } else {
 
+            $("#txtLogin").prop("disabled", true);
+            $("#txtSenha").prop("disabled", true);
+            $("#txtSenhaConfirmar").prop("disabled", true);
+            $("#btnSalvar").prop("disabled", true);
+            $('#btnVoltar').addClass('disabled');
+
             var posting = $.post('/Usuario/CreateUsuarioNaoLogado/', { usuario: vLogin, senha: vSenha, confirmarSenha: vSenhaConfirmar });
 
             // Put the results in a div
@@ -100,6 +106,20 @@ $(document).ready(function (e) {
                 });
 
             });
+
+            //Sempre executa
+            //posting.always(function (data) {
+            //});
+            setTimeout(function () {
+
+                $("#txtLogin").removeAttr('disabled');
+                $("#txtSenha").removeAttr('disabled');
+                $("#txtSenhaConfirmar").removeAttr('disabled');
+                $("#btnSalvar").removeAttr('disabled');
+                $('#btnVoltar').removeClass('disabled');
+            }, 2000);                
+
+            
         }
     })
 

@@ -12,6 +12,10 @@ textarea {
 }
 
 input[type=text] {
+    width: 280px;    
+}
+
+input[type=password] {
     width: 280px;
 }
 
