@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MeusJogos.Domain.Interfaces.Repositories;
+using MeusJogos.Domain.Interfaces.Services;
 
 namespace MeusJogos.Domain.Services
 {
-    public class UsuarioService : ServiceBase<Usuario>, IDisposable
+    public class UsuarioService : ServiceBase<Usuario>, IUsuarioService
     {
         private readonly IUsuarioRepository _usuarioRepository;
         public UsuarioService(IUsuarioRepository usuarioRepository) : base(usuarioRepository)

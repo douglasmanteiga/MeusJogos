@@ -1,0 +1,15 @@
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\MeusJogos.Infra.CrossCutting.IoC.dll
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\MeusJogos.Infra.CrossCutting.IoC.pdb
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\MeusJogos.Application.dll
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\MeusJogos.Domain.dll
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\MeusJogos.Infra.Data.dll
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\SimpleInjector.dll
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\EntityFramework.dll
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\MeusJogos.Application.pdb
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\MeusJogos.Domain.pdb
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\MeusJogos.Infra.Data.pdb
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\SimpleInjector.xml
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\bin\Debug\EntityFramework.xml
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\obj\Debug\MeusJogos.Infra.CrossCutting.IoC.csprojResolveAssemblyReference.cache
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\obj\Debug\MeusJogos.Infra.CrossCutting.IoC.dll
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.CrossCutting.IoC\obj\Debug\MeusJogos.Infra.CrossCutting.IoC.pdb

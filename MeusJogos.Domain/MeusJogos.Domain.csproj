@@ -61,6 +61,7 @@
     <Compile Include="Services\AmigoService.cs" />
     <Compile Include="Services\Base\ServiceBase.cs" />
     <Compile Include="Services\EmprestimoService.cs" />
+    <Compile Include="Services\EmprestimoSituacaoService.cs" />
     <Compile Include="Services\JogoService.cs" />
     <Compile Include="Services\UsuarioService.cs" />
   </ItemGroup>

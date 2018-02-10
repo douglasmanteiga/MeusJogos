@@ -1,4 +1,5 @@
-﻿using MeusJogos.AutoMapper;
+﻿using MeusJogos.App_Start;
+using MeusJogos.AutoMapper;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -10,6 +11,9 @@ namespace MeusJogos
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            //Inicializa a injeção de dependência
+            SimpleInjectorInitializer.Initialize();
 
             // Configurando o AutoMapper para registrar os profiles
             // de mapeamento durante a inicialização da aplicação.
