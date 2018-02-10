@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MeusJogos</RootNamespace>
     <AssemblyName>MeusJogos</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Dapper, Version=1.50.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.0\lib\net45\Dapper.dll</HintPath>
       <Private>True</Private>
@@ -96,22 +101,22 @@
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -171,6 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="AutoMapper\AutoMapperConfig.cs" />
+    <Compile Include="AutoMapper\DomainToViewModelMappingProfile.cs" />
+    <Compile Include="AutoMapper\ViewModelToDomainMappingProfile.cs" />
     <Compile Include="Controllers\AmigoController.cs" />
     <Compile Include="Controllers\EmprestimoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -179,12 +187,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Emprestimo.cs" />
-    <Compile Include="Models\EmprestimoSituacao.cs" />
-    <Compile Include="Models\Amigo.cs" />
-    <Compile Include="Models\Jogo.cs" />
-    <Compile Include="Models\MeusJogosContext.cs" />
-    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\EmprestimoViewModel.cs" />
+    <Compile Include="Models\EmprestimoSituacaoViewModel.cs" />
+    <Compile Include="Models\AmigoViewModel.cs" />
+    <Compile Include="Models\JogoViewModel.cs" />
+    <Compile Include="Models\UsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,7 +233,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MeusJogos.Application\MeusJogos.Application.csproj">
+      <Project>{f4ee78e1-a275-4556-9f91-eebece1c6680}</Project>
+      <Name>MeusJogos.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MeusJogos.Domain\MeusJogos.Domain.csproj">
+      <Project>{da8e0b85-08d9-454a-b083-543b0529056b}</Project>
+      <Name>MeusJogos.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using MeusJogos.Application.Interface;
 using MeusJogos.Models;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,12 @@ namespace MeusJogos.Controllers
 {
     public class HomeController : Controller
     {
-        public string ConnectionString = ConfigurationManager.ConnectionStrings["ConexaoMeusJogos"].ToString();
+        private readonly IUsuarioAppService _usuarioAppService;
 
+        public HomeController(IUsuarioAppService usuarioAppService)
+        {
+            _usuarioAppService = usuarioAppService;
+        }
         //private MeusJogosContext db = new MeusJogosContext();
         // GET: Home
         [Authorize]
@@ -30,11 +35,7 @@ namespace MeusJogos.Controllers
             if (Request.IsAuthenticated)
             {
                 //Consulta se o usuário logado existe.. 
-                Usuario usuarioLogado = null;
-                using (MeusJogosContext db = new MeusJogosContext())
-                {
-                    usuarioLogado = db.Usuario.Where(p => p.Login == User.Identity.Name).FirstOrDefault();
-                }
+                var usuarioLogado = _usuarioAppService.UsuarioExistenteNoSistema(User.Identity.Name);
 
                 //Se não encontrou faz logoff
                 if (usuarioLogado == null || usuarioLogado.UsuarioID <= 0)
@@ -57,25 +58,16 @@ namespace MeusJogos.Controllers
 
             if (string.IsNullOrWhiteSpace(login) == false && string.IsNullOrWhiteSpace(senha) == false)
             {
-                //Utilizando dapper no login
-                using (var sqlConnection = new SqlConnection(ConnectionString))
+                var usuarioLogin = _usuarioAppService.Login(login, senha);
+
+                if (usuarioLogin != null)
                 {
-                    //comando sql
-                    string query = string.Format("select top 1 UsuarioID, Login, Senha from tblUsuario where Login = '{0}' and Senha = '{1}'", login, senha);
-                    var usuarioLogin = sqlConnection.Query<Usuario>(query).FirstOrDefault();
-
-                    if (usuarioLogin != null)
-                    {
-                        //Session["usuarioLogado"] = usuarioExiste.Login;
-
-                        FormsAuthentication.SetAuthCookie(login, false);
-                        //return RedirectToAction("Index", "Home");                        
-                        return Json(new { Mensagem = "Sucess" }, JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
-                        return Json(new { Mensagem = "Usuário ou senha inválidos." }, JsonRequestBehavior.AllowGet);
-                    }
+                    FormsAuthentication.SetAuthCookie(login, false);
+                    return Json(new { Mensagem = "Sucess" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { Mensagem = "Usuário ou senha inválidos." }, JsonRequestBehavior.AllowGet);
                 }
             }
             else
@@ -85,55 +77,55 @@ namespace MeusJogos.Controllers
         }
 
         //Login utilizando ActionResult
-        [AllowAnonymous]
-        [HttpPost]
-        public ActionResult Login(Usuario usuario)
-        {
+        //[AllowAnonymous]
+        //[HttpPost]
+        //public ActionResult Login(UsuarioViewModel usuario)
+        //{
 
-            if (ModelState.IsValid)
-            {
-                //comando sql
-                string query = string.Format("select top 1 UsuarioID, Login, Senha from tblUsuario where Login = '{0}' and Senha = '{1}'", usuario.Login, usuario.Senha);
+        //    if (ModelState.IsValid)
+        //    {
+        //        //comando sql
+        //        string query = string.Format("select top 1 UsuarioID, Login, Senha from tblUsuario where Login = '{0}' and Senha = '{1}'", usuario.Login, usuario.Senha);
 
-                //Utilizando dapper no login
-                using (var sqlConnection = new SqlConnection(ConnectionString))
-                {
-                    var usuarioLogin = sqlConnection.Query<Usuario>(query).FirstOrDefault();
+        //        //Utilizando dapper no login
+        //        using (var sqlConnection = new SqlConnection(ConnectionString))
+        //        {
+        //            var usuarioLogin = sqlConnection.Query<UsuarioViewModel>(query).FirstOrDefault();
 
-                    if (usuarioLogin != null)
-                    {
-                        //Session["usuarioLogado"] = usuarioExiste.Login;
-                        FormsAuthentication.SetAuthCookie(usuarioLogin.Login, false);
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Login ou Senha incorreta!");
-                    }
+        //            if (usuarioLogin != null)
+        //            {
+        //                //Session["usuarioLogado"] = usuarioExiste.Login;
+        //                FormsAuthentication.SetAuthCookie(usuarioLogin.Login, false);
+        //                return RedirectToAction("Index", "Home");
+        //            }
+        //            else
+        //            {
+        //                ModelState.AddModelError("", "Login ou Senha incorreta!");
+        //            }
 
-                }
+        //        }
 
-                //Login utilizando Entity
-                //using (MeusJogosContext db = new MeusJogosContext())
-                //{
-                //    var usuarioExiste = db.Usuario.Where(p => p.Login == usuario.Login && p.Senha == usuario.Senha).FirstOrDefault();
+        //        //Login utilizando Entity
+        //        //using (MeusJogosContext db = new MeusJogosContext())
+        //        //{
+        //        //    var usuarioExiste = db.Usuario.Where(p => p.Login == usuario.Login && p.Senha == usuario.Senha).FirstOrDefault();
 
-                //    if (usuarioExiste != null)
-                //    {
-                //        //Session["usuarioLogado"] = usuarioExiste.Login;
-                //        FormsAuthentication.SetAuthCookie(usuarioExiste.Login, false);
-                //        return RedirectToAction("Index", "Home");
-                //    }
-                //    else
-                //    {
-                //        ModelState.AddModelError("", "Login ou Senha incorreta!");
-                //    }
-                //}
+        //        //    if (usuarioExiste != null)
+        //        //    {
+        //        //        //Session["usuarioLogado"] = usuarioExiste.Login;
+        //        //        FormsAuthentication.SetAuthCookie(usuarioExiste.Login, false);
+        //        //        return RedirectToAction("Index", "Home");
+        //        //    }
+        //        //    else
+        //        //    {
+        //        //        ModelState.AddModelError("", "Login ou Senha incorreta!");
+        //        //    }
+        //        //}
 
-            }
+        //    }
 
-            return View();
-        }
+        //    return View();
+        //}
 
         [Authorize]
         [HttpPost]

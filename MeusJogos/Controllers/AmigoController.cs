@@ -7,18 +7,33 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MeusJogos.Models;
+using MeusJogos.Application.Interface;
+using AutoMapper;
+using MeusJogos.Domain.Entities;
 
 namespace MeusJogos.Controllers
 {
     public class AmigoController : Controller
     {
-        private MeusJogosContext db = new MeusJogosContext();
+        private readonly IAmigoAppService _amigoAppService;
+
+        //O controller de Amigo espera no construtor um objeto IAmigoAppService
+        //Precisamos injetar esse parâmetro no construor através de um container de injeção de dependência (existem vários no caso utilizei o Simple)
+        //Para instalar utilize o Packege Manger Consolor selecionando o Projeto MVC. Digite o seguinte comando: Install-Package Ninject.MVC5
+        //Injeção de dependência
+
+        public AmigoController(IAmigoAppService amigoAppService)
+        {
+            _amigoAppService = amigoAppService;
+        }
 
         // GET: Amigo
         [Authorize]
         public ActionResult Index()
         {
-            return View(db.Amigo.ToList());
+            var viewModel = Mapper.Map<IEnumerable<Amigo>, IEnumerable<AmigoViewModel>>(_amigoAppService.GetAll());
+
+            return View(viewModel);
         }
 
         // GET: Amigo/Details/5
@@ -29,12 +44,17 @@ namespace MeusJogos.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Amigo amigo = db.Amigo.Find(id);
+
+            var amigo = _amigoAppService.GetById(id.Value);            
+
             if (amigo == null)
             {
                 return HttpNotFound();
             }
-            return View(amigo);
+
+            var viewModel = Mapper.Map<Amigo, AmigoViewModel>(amigo);
+
+            return View(viewModel);
         }
 
         // GET: Amigo/Create
@@ -50,12 +70,13 @@ namespace MeusJogos.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]        
-        public ActionResult Create([Bind(Include = "AmigoID,Nome,Email,Cidade,Endereco,Numero")] Amigo amigo)
+        public ActionResult Create([Bind(Include = "AmigoID,Nome,Email")] AmigoViewModel amigo)
         {
             if (ModelState.IsValid)
             {
-                db.Amigo.Add(amigo);
-                db.SaveChanges();
+                var viewModel = Mapper.Map<AmigoViewModel, Amigo>(amigo);
+                _amigoAppService.Add(viewModel);
+
                 return RedirectToAction("Index");
             }
 
@@ -70,12 +91,17 @@ namespace MeusJogos.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Amigo amigo = db.Amigo.Find(id);
+
+            var amigo = _amigoAppService.GetById(id.Value);
+
             if (amigo == null)
             {
                 return HttpNotFound();
             }
-            return View(amigo);
+
+            var viewModel = Mapper.Map<Amigo, AmigoViewModel>(amigo);
+
+            return View(viewModel);
         }
 
         // POST: Amigo/Edit/5
@@ -84,14 +110,18 @@ namespace MeusJogos.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AmigoID,Nome,Email,Cidade,Endereco,Numero")] Amigo amigo)
+        public ActionResult Edit([Bind(Include = "AmigoID,Nome,Email")] AmigoViewModel amigo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(amigo).State = EntityState.Modified;
-                db.SaveChanges();
+
+                var viewModel = Mapper.Map<AmigoViewModel, Amigo>(amigo);
+
+                _amigoAppService.Update(viewModel);
+
                 return RedirectToAction("Index");
             }
+
             return View(amigo);
         }
 
@@ -103,12 +133,17 @@ namespace MeusJogos.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Amigo amigo = db.Amigo.Find(id);
+
+            var amigo = _amigoAppService.GetById(id.Value);
+
             if (amigo == null)
             {
                 return HttpNotFound();
             }
-            return View(amigo);
+
+            var viewModel = Mapper.Map<Amigo, AmigoViewModel>(amigo);
+
+            return View(viewModel);
         }
 
         // POST: Amigo/Delete/5
@@ -117,19 +152,25 @@ namespace MeusJogos.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Amigo amigo = db.Amigo.Find(id);
-            db.Amigo.Remove(amigo);
-            db.SaveChanges();
+            var amigo = _amigoAppService.GetById(id);
+
+            if (amigo == null)
+            {
+                return HttpNotFound();
+            }
+
+            _amigoAppService.Remove(amigo);
+            
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

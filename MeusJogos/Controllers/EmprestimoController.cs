@@ -12,19 +12,40 @@ using System.Configuration;
 using System.Data.SqlClient;
 using Dapper;
 using PagedList;
+using MeusJogos.Application.Interface;
+using AutoMapper;
+using MeusJogos.Domain.Entities;
 
 namespace MeusJogos.Controllers
 {
     public class EmprestimoController : Controller
-    {
-        private string ConnectionString = ConfigurationManager.ConnectionStrings["ConexaoMeusJogos"].ToString();
-        private MeusJogosContext db = new MeusJogosContext();
+    {        
+        private readonly IEmprestimoAppService _emprestimoAppService;
+        private readonly IEmprestimoSituacaoAppService _emprestimoSituacaoAppService;        
+        private readonly IAmigoAppService _amigoAppService;
+        private readonly IUsuarioAppService _usuarioAppService;
+
+        public EmprestimoController(IEmprestimoAppService emprestimoAppService,
+            IEmprestimoSituacaoAppService emprestimoSituacaoAppService,
+            IAmigoAppService amigoAppService,
+            IUsuarioAppService usuarioAppService)
+        {
+            _emprestimoAppService = emprestimoAppService;
+            _emprestimoSituacaoAppService = emprestimoSituacaoAppService;
+            _amigoAppService = amigoAppService;
+            _usuarioAppService = usuarioAppService;
+        }
 
         private void DadosComboBox()
         {
-            ViewBag.Situacao = new SelectList(db.EmprestimoSituacao.ToList(), "EmprestimoSituacaoID", "Descricao");
-            ViewBag.Amigo = new SelectList(db.Amigo.ToList(), "AmigoID", "Nome");
-            ViewBag.Jogo = new SelectList(db.Jogo.ToList(), "JogoID", "Nome");
+
+            var situacao = Mapper.Map<IEnumerable<EmprestimoSituacao>, IEnumerable<EmprestimoSituacaoViewModel>>(_emprestimoSituacaoAppService.GetAll());
+            var amigo = Mapper.Map<IEnumerable<Amigo>, IEnumerable<AmigoViewModel>>(_amigoAppService.GetAll());
+            var usuario = Mapper.Map<IEnumerable<Usuario>, IEnumerable<UsuarioViewModel>>(_usuarioAppService.GetAll());
+
+            ViewBag.Situacao = new SelectList(situacao, "EmprestimoSituacaoID", "Descricao");
+            ViewBag.Amigo = new SelectList(amigo, "AmigoID", "Nome");
+            ViewBag.Jogo = new SelectList(usuario, "JogoID", "Nome");
         }
 
         // GET: Emprestimo
@@ -68,8 +89,7 @@ namespace MeusJogos.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var emprestimos = from s in db.Emprestimo
-                              select s;
+            var emprestimos = from s in _emprestimoAppService.GetAll() select s;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -103,8 +123,9 @@ namespace MeusJogos.Controllers
             int pageSize = 3;
             int pageNumber = (page ?? 1);
 
+            var viewModel = Mapper.Map<IEnumerable<Emprestimo>, IEnumerable<EmprestimoViewModel>>(emprestimos);
 
-            return View(emprestimos.ToPagedList(pageNumber, pageSize));
+            return View(viewModel.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Emprestimo/Details/5
@@ -115,12 +136,17 @@ namespace MeusJogos.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Emprestimo emprestimo = db.Emprestimo.Find(id);
+
+            var emprestimo = _emprestimoAppService.GetById(id.Value);
+
             if (emprestimo == null)
             {
                 return HttpNotFound();
             }
-            return View(emprestimo);
+
+            var viewModel = Mapper.Map<Emprestimo, EmprestimoViewModel>(emprestimo);
+
+            return View(viewModel);
         }
 
 
@@ -140,18 +166,18 @@ namespace MeusJogos.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmprestimoID,DataHora,DataEmprestimo,DataProgramadaDevolucao,EmprestimoSituacaoID,AmigoID,JogoID")] Emprestimo emprestimo)
+        public ActionResult Create([Bind(Include = "EmprestimoID,DataHora,DataEmprestimo,DataProgramadaDevolucao,EmprestimoSituacaoID,AmigoID,JogoID")] EmprestimoViewModel emprestimo)
         {
             DadosComboBox();
 
-            Usuario usuarioLogado = db.Usuario.Where(p => p.Login == User.Identity.Name).FirstOrDefault();
+            var usuarioLogado = _usuarioAppService.UsuarioExistenteNoSistema(User.Identity.Name);                               
 
             if (usuarioLogado == null || usuarioLogado.UsuarioID <= 0)
             {
                 ModelState.AddModelError("", "O usuário logado não foi encontrado, cadastre um novo usuário e realize o login para prosseguir com a operação!");
             }
             //Seta o usuário logado para salvar no banco o log
-            emprestimo.Usuario = usuarioLogado;
+            emprestimo.Usuario = Mapper.Map<Usuario, UsuarioViewModel>(usuarioLogado); ;
             emprestimo.DataHora = DateTime.Now;
 
             if (emprestimo.EmprestimoSituacaoID <= 0)
@@ -165,11 +191,8 @@ namespace MeusJogos.Controllers
 
             if (ModelState.IsValid)
             {
-                //emprestimo.DataEmprestimo = DateTime.Parse(emprestimo.DataEmprestimo.ToString("yyyy-MM-dd"));
-                //emprestimo.DataProgramadaDevolucao = DateTime.Parse(emprestimo.DataProgramadaDevolucao.ToString("yyyy-MM-dd"));
-
-                db.Emprestimo.Add(emprestimo);
-                db.SaveChanges();
+                var viewModel = Mapper.Map<EmprestimoViewModel, Emprestimo>(emprestimo);
+                _emprestimoAppService.Add(viewModel);
                 return RedirectToAction("Index");
             }
 
@@ -186,12 +209,17 @@ namespace MeusJogos.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Emprestimo emprestimo = db.Emprestimo.Find(id);
+
+            var emprestimo = _emprestimoAppService.GetById(id.Value);
+
             if (emprestimo == null)
             {
                 return HttpNotFound();
             }
-            return View(emprestimo);
+
+            var viewModel = Mapper.Map<Emprestimo, EmprestimoViewModel>(emprestimo);
+
+            return View(viewModel);
         }
 
         // POST: Emprestimo/Edit/5
@@ -200,39 +228,20 @@ namespace MeusJogos.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmprestimoID,DataHora,DataEmprestimo,DataProgramadaDevolucao,EmprestimoSituacaoID,AmigoID,JogoID")] Emprestimo emprestimo)
+        public ActionResult Edit([Bind(Include = "EmprestimoID,DataHora,DataEmprestimo,DataProgramadaDevolucao,EmprestimoSituacaoID,AmigoID,JogoID")] EmprestimoViewModel emprestimo)
         {
             DadosComboBox();
 
-            var objetoNoBanco = db.Emprestimo.Find(emprestimo.EmprestimoID);
-            //emprestimo = objetoNoBanco;
-
-            if (objetoNoBanco != null)
-            {
-                //Mantem o que foi cadastrado inicialmente
-                emprestimo.DataHora = objetoNoBanco.DataHora;
-                emprestimo.Usuario = objetoNoBanco.Usuario;
-            }
-
-            //emprestimo.EmprestimoSituacao = db.EmprestimoSituacao.Find(emprestimo.EmprestimoSituacaoID);
-            //emprestimo.Amigo = db.Amigo.Find(emprestimo.AmigoID);
-            //emprestimo.Jogo = db.Jogo.Find(emprestimo.JogoID);
-
             if (ModelState.IsValid)
             {
-                //Comando SQL
-                string query = string.Format("update tblEmprestimo set EmprestimoSituacaoID = {0}, AmigoID = {1}, JogoID = {2}, DataEmprestimo = '{4}', DataProgramadaDevolucao = '{5}' where EmprestimoID = {3}", emprestimo.EmprestimoSituacaoID, emprestimo.AmigoID, emprestimo.JogoID, emprestimo.EmprestimoID, emprestimo.DataEmprestimo.ToString("MM/dd/yyyy HH:mm:ss"), emprestimo.DataProgramadaDevolucao.ToString("MM/dd/yyyy HH:mm:ss"));
 
-                //Utilizando dapper
-                using (var sqlConnection = new SqlConnection(ConnectionString))
-                {
-                    int rowsAffected = sqlConnection.Execute(query);
+                var viewModel = Mapper.Map<EmprestimoViewModel, Emprestimo>(emprestimo);
 
-                    return RedirectToAction("Index");
-                }
+                _emprestimoAppService.Update(viewModel);
 
-
+                return RedirectToAction("Index");
             }
+
             return View(emprestimo);
         }
 
@@ -244,12 +253,17 @@ namespace MeusJogos.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Emprestimo emprestimo = db.Emprestimo.Find(id);
+
+            var emprestimo = _emprestimoAppService.GetById(id.Value);
+
             if (emprestimo == null)
             {
                 return HttpNotFound();
             }
-            return View(emprestimo);
+
+            var viewModel = Mapper.Map<Emprestimo, EmprestimoViewModel>(emprestimo);
+
+            return View(viewModel);
         }
 
         // POST: Emprestimo/Delete/5
@@ -258,27 +272,26 @@ namespace MeusJogos.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Emprestimo emprestimo = db.Emprestimo.Find(id);
-            db.Emprestimo.Remove(emprestimo);
-            db.SaveChanges();
+            var emprestimo = _emprestimoAppService.GetById(id);
+
+            if (emprestimo == null)
+            {
+                return HttpNotFound();
+            }
+
+            _emprestimoAppService.Remove(emprestimo);
+
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
-        private Usuario UsuarioLogado(string login)
-        {
-            using (MeusJogosContext db = new MeusJogosContext())
-            {
-                return db.Usuario.Where(p => p.Login == login).FirstOrDefault();
-            }
-        }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MeusJogos.Models.Amigo>
+﻿@model IEnumerable<MeusJogos.Models.AmigoViewModel>
 
 @{
     ViewBag.Title = "Gerenciar Amigos";
@@ -17,15 +17,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cidade)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Endereco)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Numero)
-        </th>
         <th></th>
     </tr>
 
@@ -36,15 +27,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cidade)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Endereco)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Numero)
         </td>
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.AmigoID }, new { @class = "btn btn-primary", @id = "btnEditar" })

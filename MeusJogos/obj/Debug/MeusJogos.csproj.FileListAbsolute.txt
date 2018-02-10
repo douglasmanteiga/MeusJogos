@@ -275,9 +275,12 @@ C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\roslyn\VBCSCompiler.exe.co
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\MeusJogos.dll.config
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\MeusJogos.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\MeusJogos.pdb
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\AutoMapper.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\Dapper.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\EntityFramework.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\EntityFramework.SqlServer.dll
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\MeusJogos.Application.dll
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\MeusJogos.Domain.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\Microsoft.AI.Agent.Intercept.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\Microsoft.AI.DependencyCollector.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -295,6 +298,9 @@ C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Razor.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Webpages.Deployment.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Webpages.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\System.Web.Webpages.Razor.dll
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\MeusJogos.Application.pdb
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\MeusJogos.Domain.pdb
+C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\AutoMapper.xml
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\Dapper.xml
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\EntityFramework.xml
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos\bin\EntityFramework.SqlServer.xml

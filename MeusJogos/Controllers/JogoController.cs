@@ -7,18 +7,28 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MeusJogos.Models;
+using MeusJogos.Application.Interface;
+using MeusJogos.Domain.Entities;
+using AutoMapper;
 
 namespace MeusJogos.Controllers
 {
     public class JogoController : Controller
     {
-        private MeusJogosContext db = new MeusJogosContext();
+        private readonly IJogoAppService _jogoAppService;
+
+        public JogoController(IJogoAppService jogoAppService)
+        {
+            _jogoAppService = jogoAppService;
+        }
 
         // GET: Jogo
         [Authorize]
         public ActionResult Index()
         {
-            return View(db.Jogo.ToList());
+            var viewModel = Mapper.Map<IEnumerable<Jogo>, IEnumerable<JogoViewModel>>(_jogoAppService.GetAll());
+
+            return View(viewModel);
         }
 
         // GET: Jogo/Details/5
@@ -29,12 +39,17 @@ namespace MeusJogos.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Jogo jogo = db.Jogo.Find(id);
+
+            var jogo = _jogoAppService.GetById(id.Value);
+
             if (jogo == null)
             {
                 return HttpNotFound();
             }
-            return View(jogo);
+
+            var viewModel = Mapper.Map<Jogo, JogoViewModel>(jogo);
+
+            return View(viewModel);
         }
 
         // GET: Jogo/Create
@@ -50,12 +65,13 @@ namespace MeusJogos.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "JogoID,Nome,Ativo")] Jogo jogo)
+        public ActionResult Create([Bind(Include = "JogoID,Nome,Ativo")] JogoViewModel jogo)
         {
             if (ModelState.IsValid)
             {
-                db.Jogo.Add(jogo);
-                db.SaveChanges();
+                var viewModel = Mapper.Map<JogoViewModel, Jogo>(jogo);
+                _jogoAppService.Add(viewModel);
+
                 return RedirectToAction("Index");
             }
 
@@ -70,12 +86,17 @@ namespace MeusJogos.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Jogo jogo = db.Jogo.Find(id);
+
+            var jogo = _jogoAppService.GetById(id.Value);
+
             if (jogo == null)
             {
                 return HttpNotFound();
             }
-            return View(jogo);
+
+            var viewModel = Mapper.Map<Jogo, JogoViewModel>(jogo);
+
+            return View(viewModel);
         }
 
         // POST: Jogo/Edit/5
@@ -84,14 +105,18 @@ namespace MeusJogos.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "JogoID,Nome,Ativo")] Jogo jogo)
+        public ActionResult Edit([Bind(Include = "JogoID,Nome,Ativo")] JogoViewModel jogo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(jogo).State = EntityState.Modified;
-                db.SaveChanges();
+
+                var viewModel = Mapper.Map<JogoViewModel, Jogo>(jogo);
+
+                _jogoAppService.Update(viewModel);
+
                 return RedirectToAction("Index");
             }
+
             return View(jogo);
         }
         [Authorize]
@@ -102,12 +127,17 @@ namespace MeusJogos.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Jogo jogo = db.Jogo.Find(id);
+
+            var jogo = _jogoAppService.GetById(id.Value);
+
             if (jogo == null)
             {
                 return HttpNotFound();
             }
-            return View(jogo);
+
+            var viewModel = Mapper.Map<Jogo, JogoViewModel>(jogo);
+
+            return View(viewModel);
         }
 
         [Authorize]
@@ -116,19 +146,17 @@ namespace MeusJogos.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Jogo jogo = db.Jogo.Find(id);
-            db.Jogo.Remove(jogo);
-            db.SaveChanges();
+            var jogo = _jogoAppService.GetById(id);
+
+            if (jogo == null)
+            {
+                return HttpNotFound();
+            }
+
+            _jogoAppService.Remove(jogo);
+
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }
