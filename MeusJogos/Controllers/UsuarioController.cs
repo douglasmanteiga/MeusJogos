@@ -65,8 +65,17 @@ namespace MeusJogos.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UsuarioID,Login,Senha")] UsuarioViewModel usuario)
         {
+            if (usuario != null && string.IsNullOrEmpty(usuario.Login) == false)
+            {
+                if (_usuarioAppService.UsuarioExistenteNoSistema(usuario.Login) != null)
+                {
+                    ModelState.AddModelError("", "O nome de usuário informado já existe no sistema.");
+                }
+            }
+
             if (ModelState.IsValid)
             {
+
                 var viewModel = Mapper.Map<UsuarioViewModel, Usuario>(usuario);
                 _usuarioAppService.Add(viewModel);
 
@@ -155,6 +164,13 @@ namespace MeusJogos.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UsuarioID,Login,Senha")] UsuarioViewModel usuario)
         {
+            //var usuarioExistente =_usuarioAppService.UsuarioExistenteNoSistema(usuario.Login);
+
+            //if(usuarioExistente != null && usuarioExistente.UsuarioID != usuario.UsuarioID)
+            //{
+            //    ModelState.AddModelError("", "O nome de usuário informado já existe no sistema.");
+            //}
+
             if (ModelState.IsValid)
             {
 
