@@ -174,14 +174,14 @@ namespace MeusJogos.Controllers
         {
             DadosComboBox();
 
-            var usuarioLogado = _usuarioAppService.UsuarioExistenteNoSistema(User.Identity.Name);                               
+            var usuarioLogado = _usuarioAppService.UsuarioExistenteNoSistema(User.Identity.Name);
 
             if (usuarioLogado == null || usuarioLogado.UsuarioID <= 0)
             {
                 ModelState.AddModelError("", "O usuário logado não foi encontrado, cadastre um novo usuário e realize o login para prosseguir com a operação!");
             }
             //Seta o usuário logado para salvar no banco o log
-            emprestimo.Usuario = Mapper.Map<Usuario, UsuarioViewModel>(usuarioLogado); ;
+            emprestimo.Usuario = Mapper.Map<Usuario, UsuarioViewModel>(usuarioLogado);
             emprestimo.DataHora = DateTime.Now;
 
             if (emprestimo.EmprestimoSituacaoID <= 0)
@@ -238,8 +238,12 @@ namespace MeusJogos.Controllers
 
             if (ModelState.IsValid)
             {
+                var usuarioLogado = _usuarioAppService.UsuarioExistenteNoSistema(User.Identity.Name);
+                emprestimo.UsuarioID = usuarioLogado.UsuarioID;
+                emprestimo.Usuario = Mapper.Map<Usuario, UsuarioViewModel>(usuarioLogado);
 
                 var viewModel = Mapper.Map<EmprestimoViewModel, Emprestimo>(emprestimo);
+                
 
                 _emprestimoAppService.Update(viewModel);
 

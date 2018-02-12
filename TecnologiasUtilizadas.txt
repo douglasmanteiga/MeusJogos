@@ -1,3 +1,2 @@
-+ Projeto em MVC utilizando Entity Framework e Razor
-+ Login utilizado Dapper
-+ Atualização de Empréstimos utilizado Dapper
++ Projeto DDD em MVC utilizando Entity Framework e Razor
++ Login com JQuery

@@ -67,13 +67,13 @@ namespace MeusJogos.Infra.Data.Context
                 }
             }
 
-            //foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("UsuarioID") != null))
-            //{
-            //    if (entry.State == EntityState.Modified)
-            //    {
-            //        entry.Property("UsuarioID").IsModified = false;
-            //    }
-            //}
+            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("UsuarioID") != null))
+            {
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Property("UsuarioID").IsModified = false;
+                }
+            }
 
             return base.SaveChanges();
         }
