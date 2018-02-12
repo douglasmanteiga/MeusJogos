@@ -25,7 +25,7 @@ namespace MeusJogos.Infra.Data.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-            Database.SetInitializer<MeusJogosContext>(new DropCreateDatabaseAlways<MeusJogosContext>());
+            //Database.SetInitializer<MeusJogosContext>(new DropCreateDatabaseAlways<MeusJogosContext>());
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>(); //Remove a criação de tabelas no plural
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); //Não deleta em cascata qnd estiver uma relação de um para N
