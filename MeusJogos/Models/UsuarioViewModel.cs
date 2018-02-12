@@ -13,12 +13,11 @@ namespace MeusJogos.Models
         [Key]
         [Display(Name = "Código")]
         public int UsuarioID { get; set; }
-        [MaxLength(100, ErrorMessage = "Máximo {0} caracteres")]
-        [MinLength(2, ErrorMessage = "Mínimo de {0} caracteres")]
+        [MaxLength(100, ErrorMessage = "Máximo 100 caracteres")]
+        [MinLength(2, ErrorMessage = "Mínimo de 2 caracteres")]
         [Required(ErrorMessage = "Preencha o campo login")]
         public string Login { get; set; }
-        [MaxLength(100, ErrorMessage = "Máximo {0} caracteres")]
-        [MinLength(6, ErrorMessage = "Mínimo de {0} caracteres")]
+        [MaxLength(100, ErrorMessage = "Máximo 100 caracteres")]
         [Required(ErrorMessage = "Preencha o campo o campo senha")]
         public string Senha { get; set; }
     }

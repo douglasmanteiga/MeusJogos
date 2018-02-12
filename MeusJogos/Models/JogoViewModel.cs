@@ -14,8 +14,8 @@ namespace MeusJogos.Models
         [Display(Name = "Código")]
         public int JogoID { get; set; }
 
-        [MaxLength(100, ErrorMessage = "Máximo {0} caracteres")]
-        [MinLength(2, ErrorMessage = "Mínimo de {0} caracteres")]
+        [MaxLength(100, ErrorMessage = "Máximo 100 caracteres")]
+        [MinLength(2, ErrorMessage = "Mínimo de 2 caracteres")]
         [Required(ErrorMessage = "Preencha o campo nome")]
         public string Nome{ get; set; }
 

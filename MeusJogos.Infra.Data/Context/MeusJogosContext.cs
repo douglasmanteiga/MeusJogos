@@ -25,6 +25,8 @@ namespace MeusJogos.Infra.Data.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
+            Database.SetInitializer<MeusJogosContext>(new DropCreateDatabaseAlways<MeusJogosContext>());
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>(); //Remove a criação de tabelas no plural
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); //Não deleta em cascata qnd estiver uma relação de um para N
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>(); //Não deleta em cascada qnd estiver uma relação de N para N
@@ -65,13 +67,13 @@ namespace MeusJogos.Infra.Data.Context
                 }
             }
 
-            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("UsuarioID") != null))
-            {
-                if (entry.State == EntityState.Modified)
-                {
-                    entry.Property("UsuarioID").IsModified = false;
-                }
-            }
+            //foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("UsuarioID") != null))
+            //{
+            //    if (entry.State == EntityState.Modified)
+            //    {
+            //        entry.Property("UsuarioID").IsModified = false;
+            //    }
+            //}
 
             return base.SaveChanges();
         }

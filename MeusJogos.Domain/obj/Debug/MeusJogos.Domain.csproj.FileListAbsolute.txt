@@ -2,3 +2,7 @@ C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Domain\bin\Debug\MeusJogos.Dom
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Domain\bin\Debug\MeusJogos.Domain.pdb
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Domain\obj\Debug\MeusJogos.Domain.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Domain\obj\Debug\MeusJogos.Domain.pdb
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Domain\bin\Debug\MeusJogos.Domain.dll
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Domain\bin\Debug\MeusJogos.Domain.pdb
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Domain\obj\Debug\MeusJogos.Domain.dll
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Domain\obj\Debug\MeusJogos.Domain.pdb

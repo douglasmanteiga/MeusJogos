@@ -5,3 +5,10 @@ C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Application\bin\Debug\MeusJogo
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Application\obj\Debug\MeusJogos.Application.csprojResolveAssemblyReference.cache
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Application\obj\Debug\MeusJogos.Application.dll
 C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Application\obj\Debug\MeusJogos.Application.pdb
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Application\bin\Debug\MeusJogos.Application.dll
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Application\bin\Debug\MeusJogos.Application.pdb
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Application\bin\Debug\MeusJogos.Domain.dll
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Application\bin\Debug\MeusJogos.Domain.pdb
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Application\obj\Debug\MeusJogos.Application.csprojResolveAssemblyReference.cache
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Application\obj\Debug\MeusJogos.Application.dll
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Application\obj\Debug\MeusJogos.Application.pdb

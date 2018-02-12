@@ -23,16 +23,20 @@ namespace MeusJogos.Controllers
         private readonly IEmprestimoAppService _emprestimoAppService;
         private readonly IEmprestimoSituacaoAppService _emprestimoSituacaoAppService;        
         private readonly IAmigoAppService _amigoAppService;
+        private readonly IJogoAppService _jogoAppService;
         private readonly IUsuarioAppService _usuarioAppService;
 
         public EmprestimoController(IEmprestimoAppService emprestimoAppService,
             IEmprestimoSituacaoAppService emprestimoSituacaoAppService,
-            IAmigoAppService amigoAppService,
-            IUsuarioAppService usuarioAppService)
+            IAmigoAppService amigoAppService,            
+            IJogoAppService jogoAppService,
+            IUsuarioAppService usuarioAppService
+            )
         {
             _emprestimoAppService = emprestimoAppService;
             _emprestimoSituacaoAppService = emprestimoSituacaoAppService;
             _amigoAppService = amigoAppService;
+            _jogoAppService = jogoAppService;
             _usuarioAppService = usuarioAppService;
         }
 
@@ -41,11 +45,11 @@ namespace MeusJogos.Controllers
 
             var situacao = Mapper.Map<IEnumerable<EmprestimoSituacao>, IEnumerable<EmprestimoSituacaoViewModel>>(_emprestimoSituacaoAppService.GetAll());
             var amigo = Mapper.Map<IEnumerable<Amigo>, IEnumerable<AmigoViewModel>>(_amigoAppService.GetAll());
-            var usuario = Mapper.Map<IEnumerable<Usuario>, IEnumerable<UsuarioViewModel>>(_usuarioAppService.GetAll());
+            var jogo = Mapper.Map<IEnumerable<Jogo>, IEnumerable<JogoViewModel>>(_jogoAppService.GetAll());
 
             ViewBag.Situacao = new SelectList(situacao, "EmprestimoSituacaoID", "Descricao");
             ViewBag.Amigo = new SelectList(amigo, "AmigoID", "Nome");
-            ViewBag.Jogo = new SelectList(usuario, "JogoID", "Nome");
+            ViewBag.Jogo = new SelectList(jogo, "JogoID", "Nome");
         }
 
         // GET: Emprestimo

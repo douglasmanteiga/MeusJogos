@@ -16,12 +16,12 @@ namespace MeusJogos.Models
         [Display(Name = "Código")]
         public int AmigoID { get; set; }
         [Required(ErrorMessage = "Preencha o campo nome")]
-        [MaxLength(150, ErrorMessage = "Máximo {0} caracteres")]
-        [MinLength(2, ErrorMessage = "Mínimo de {0} caracteres")]
+        [MaxLength(150, ErrorMessage = "Máximo 150 caracteres")]
+        [MinLength(2, ErrorMessage = "Mínimo de 2 caracteres")]
         public string Nome { get; set; }
         [Display(Name = "E-mail")]
         [Required(ErrorMessage = "Preencha o campo e-mail")]
-        [MaxLength(100, ErrorMessage = "Máximo {0} caracteres")]
+        [MaxLength(100, ErrorMessage = "Máximo 100 caracteres")]
         [EmailAddress(ErrorMessage = "Preencha um e-mail válido")]
         public string Email { get; set; }
     }
