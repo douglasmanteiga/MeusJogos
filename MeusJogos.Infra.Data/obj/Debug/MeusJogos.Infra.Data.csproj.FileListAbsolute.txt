@@ -13,10 +13,12 @@ C:\Users\Douglas\Source\Repos\MeusJogos\MeusJogos.Infra.Data\obj\Debug\MeusJogos
 C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\bin\Debug\MeusJogos.Infra.Data.dll.config
 C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\bin\Debug\MeusJogos.Infra.Data.dll
 C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\bin\Debug\MeusJogos.Infra.Data.pdb
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\bin\Debug\Dapper.dll
 C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\bin\Debug\EntityFramework.dll
 C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\bin\Debug\MeusJogos.Domain.dll
 C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\bin\Debug\MeusJogos.Domain.pdb
+C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\bin\Debug\Dapper.xml
 C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\bin\Debug\EntityFramework.xml
 C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\dmanteiga\Source\Repos\MeusJogos\MeusJogos.Infra.Data\obj\Debug\MeusJogos.Infra.Data.csprojResolveAssemblyReference.cache
